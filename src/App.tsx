@@ -1,25 +1,37 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+
+import { createGlobalStyle } from 'styled-components';
+import { ContextProvider } from "./ContextProvider"
+import Cards from './Components/Cards';
+import Header from "./Components/Header"
+import styled from 'styled-components';
+import Cart from './Components/Cart';
+
+const Container = styled.div`
+position:relative;
+box-sizing:border-box;
+
+`
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'Maven Pro', sans-serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextProvider>
+      <GlobalStyle/>
+      <Container>
+        <Cart />
+<Header />
+<h1 style={{margin:0,padding:0, textAlign:"center", marginTop:"1.5em"}}>Products</h1>
+    <Cards/>
+    </Container>
+    </ContextProvider>
   );
 }
 
