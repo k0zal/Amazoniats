@@ -77,7 +77,7 @@ const CartreviewDiv = styled.div`
 `;
 
 function Cards() {
-  const { products, setCart, cart, setProducts, searchedProducts } = useContext(Context);
+  const { products, setCart, cart, setProducts, searchedProducts, loggedIn } = useContext(Context);
   const [notice, setNotice] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true)
   const [filterSelect, setFilterSelect] = useState<string>("")
@@ -138,7 +138,7 @@ function filterSelectFunction(filterValue: string){
   const prodz = products.map((product: IProductItem) => {
     return (
       
-      <EventsLI key={product.ID} event-testid={"event" + product.ID} >
+      <EventsLI key={product.ID}>
         <CardActionArea>
           <Card sx={{ maxWidth: 320, backgroundColor: "rgb(247, 245, 245)" }}>
             {!loading ? 
@@ -170,8 +170,8 @@ function filterSelectFunction(filterValue: string){
             </CardContent>
             <CardActions>
               <CartreviewDiv>
-                <Button
-                data-testid="adding"
+               {loggedIn ? <Button
+                data-testid="button"
                   size="medium"
                   color="success"
                   variant="contained"
@@ -180,6 +180,16 @@ function filterSelectFunction(filterValue: string){
                 >
                   Add to cart
                 </Button>
+  : <Button
+  data-testid="button"
+    size="medium"
+    color="warning"
+    variant="contained"
+    disabled={true}
+  
+  >
+    Sign In 
+  </Button> }
                 <Rating
                   name="text-feedback"
                   value={product?.Rating?.Rate}

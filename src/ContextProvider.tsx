@@ -9,6 +9,7 @@ const ContextProvider = ({ children }: any) => {
   const [searchedProducts, setSearchedProducts] = useState<IProductItem[]>([]);
   const [cart, setCart] = useState<ICartItem[]>([] as ICartItem[]);
   const [cartNumber, setCartNumber] = useState<number>()
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const [open, setOpen] = React.useState<boolean>(false);
   const handleOpen = () => setOpen(true);
@@ -37,7 +38,22 @@ const ContextProvider = ({ children }: any) => {
       });
   }
 
-  
+  useEffect(() => {
+    function checkLoggedIn() {
+      const localCart = localStorage.getItem("logged");
+      if (!localCart) {
+        localStorage.setItem("logged", JSON.stringify(loggedIn));
+      } else {
+        const cartExists = JSON.parse(localStorage.getItem("logged")!);
+        setLoggedIn(cartExists);
+      }
+    }
+    checkLoggedIn();
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("logged", JSON.stringify(loggedIn))
+   }, [loggedIn])
 
   
 // switch setproducts and setsearched for filtering.
@@ -102,7 +118,9 @@ const ContextProvider = ({ children }: any) => {
         handleClose,
         searchForItem,
         searchedProducts,
-        setProducts
+        setProducts,
+        setLoggedIn,
+        loggedIn
       }}
     >
       {children}

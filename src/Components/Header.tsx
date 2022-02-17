@@ -77,9 +77,9 @@ const style = {
 };
 
 export default function SearchAppBar() {
-  const { handleOpen, searchForItem, cart } = useContext(Context);
+  const { handleOpen, searchForItem, cart, setLoggedIn, loggedIn } = useContext(Context);
   const [open, setOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  
   const openLogin = () => setOpen(true);
   const closeLogin = () => setOpen(false);
   const [username, setUsername] = useState<string>("");
@@ -112,11 +112,13 @@ export default function SearchAppBar() {
       setFirstLast("Ture Sventon")
       setAdminOrUser("User")
       setLoggedIn(true)
+      localStorage.setItem("logged", JSON.stringify(loggedIn))
     }
     else if(username === "admin" && password === "admin"){
       setFirstLast("Lars Sqlsson")
       setAdminOrUser("Admin")
       setLoggedIn(true)
+      localStorage.setItem("logged", JSON.stringify(loggedIn))
     }
     else if(username !== "user" && username !== "admin"){
       setErrorMessage("Account not found")
@@ -130,6 +132,17 @@ export default function SearchAppBar() {
 
   
   }
+
+  
+
+  function handleSignOut(){
+    setLoggedIn(false)
+    localStorage.setItem("logged", JSON.stringify(loggedIn))
+  }
+
+  useEffect(() => {
+ console.log("logged in state", loggedIn)
+  }, [loggedIn])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -148,7 +161,7 @@ export default function SearchAppBar() {
             </Badge>
           </IconButton>
           <Button onClick={openLogin} color="inherit">
-            LOGIN
+            {loggedIn ? "Sign out" : "Login"}
           </Button>
           <Search>
             <SearchIconWrapper>
@@ -207,7 +220,7 @@ export default function SearchAppBar() {
                 sx={{ width: "70%", marginTop: "1.5em" }}
                 variant="contained"
               >
-                Login
+                {loggedIn ? "Sign Out" : "Login"}
               </Button>
               {errorMessage && <Alert variant="outlined" sx={{marginTop:3, marginBottom:2, }} severity="error">
         {errorMessage}
@@ -224,7 +237,7 @@ export default function SearchAppBar() {
           <Typography gutterBottom variant="subtitle2">
             Role: {adminOrUser}
           </Typography>
-          <Button variant="outlined" sx={{marginTop:2}}onClick={() => setLoggedIn(false)}>LOG OUT</Button>
+          <Button variant="outlined" sx={{marginTop:2}}onClick={() => handleSignOut()}>LOG OUT</Button>
           </>)}
         </Box>
       </Modal>

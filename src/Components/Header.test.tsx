@@ -1,19 +1,18 @@
-
 import { render, screen, cleanup } from '@testing-library/react';
-import Cards from "../Components/Cards"
+import Header from "./Header"
 import userEvent from '@testing-library/user-event';
 import {ContextProvider} from "../ContextProvider"
 import { Component } from 'react';
 import App from "../App"
 
-describe("Cards component", () => {
-    const setup = () => render(<ContextProvider><Cards /></ContextProvider>)
+describe("Header component", () => {
+    const setup = () => render(<ContextProvider><Header /></ContextProvider>)
 
-    it("Renders card without crashing", () => {
+    it("Renders header without crashing", () => {
         setup()
     })
 
-    it("Adds selected item to the cart", async () => {
+    it("Searches for item", async () => {
         setup()
 
         expect(await screen.getAllByRole("listitem")).toBeVisible();
