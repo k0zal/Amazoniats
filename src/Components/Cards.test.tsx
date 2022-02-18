@@ -17,9 +17,9 @@ describe("Cards component", () => {
       it("Adds item to cart", async () => {
         setup()
 
-        await waitFor(() => expect(screen.getByTestId("add1")).toBeVisible());
+        await waitFor(() => expect(screen.getByLabelText("add1")).toBeVisible());
 
-        const addButton = screen.getByTestId("add1")
+        const addButton = screen.getByLabelText("add1")
         userEvent.click(addButton)
         const cartFetch = JSON.parse(localStorage.getItem("Cart")!)
         expect(cartFetch.length).toBe(1)

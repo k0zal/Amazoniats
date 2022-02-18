@@ -171,7 +171,7 @@ function filterSelectFunction(filterValue: string){
             <CardActions>
               <CartreviewDiv>
                <Button
-                data-testid={"add" + product.ID}
+                aria-label={"add" + product.ID}
                   size="medium"
                   color="success"
                   variant="contained"
@@ -180,6 +180,7 @@ function filterSelectFunction(filterValue: string){
                 >
                   Add to cart
                 </Button>
+
                 <Rating
                   name="text-feedback"
                   value={product?.Rating?.Rate}

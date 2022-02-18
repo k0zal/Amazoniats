@@ -24,16 +24,16 @@ describe("Cards component", () => {
       </ContextProvider>
     );
 
-    await waitFor(() => expect(screen.getByTestId("add1")).toBeVisible());
+    await waitFor(() => expect(screen.getByLabelText("add1")).toBeVisible());
 
-    const addButton = screen.getByTestId("add1");
+    const addButton = screen.getByLabelText("add1");
     userEvent.dblClick(addButton);
 
     const cartFetch = JSON.parse(localStorage.getItem("Cart")!);
     expect(cartFetch[0].Count).toBe(2);
   });
 
-  it("Opens cart modal to see items", async () => {
+  it("Opens cart to check for items", async () => {
     render(
       <ContextProvider>
         <Cart />
@@ -58,7 +58,7 @@ describe("Cards component", () => {
 
     const clickModal = screen.getByLabelText("open drawer");
     userEvent.click(clickModal);
-    
+    const modal = screen.getByLabelText("modal");
     const increaseFromCart = screen.getByLabelText("increase");
     userEvent.click(increaseFromCart);
     const cartFetch = JSON.parse(localStorage.getItem("Cart")!);
@@ -77,8 +77,8 @@ describe("Cards component", () => {
     const clickModal = screen.getByLabelText("open drawer");
     userEvent.click(clickModal);
     const modal = screen.getByLabelText("modal");
-    const increaseFromCart = screen.getByLabelText("reduce");
-    userEvent.click(increaseFromCart);
+    const decreaseFromCart = screen.getByLabelText("reduce");
+    userEvent.click(decreaseFromCart);
     const cartFetch = JSON.parse(localStorage.getItem("Cart")!);
     expect(cartFetch[0].Count).toBe(2);
   });
@@ -95,8 +95,8 @@ describe("Cards component", () => {
     const clickModal = screen.getByLabelText("open drawer");
     userEvent.click(clickModal);
     const modal = screen.getByLabelText("modal");
-    const increaseFromCart = screen.getByLabelText("totalremove");
-    userEvent.click(increaseFromCart);
+    const emptyCart = screen.getByLabelText("totalremove");
+    userEvent.click(emptyCart);
     const cartFetch = JSON.parse(localStorage.getItem("Cart")!);
     expect(cartFetch.length).toBe(0);
   });
