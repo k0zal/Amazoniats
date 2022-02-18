@@ -1,5 +1,5 @@
 
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import Cards from "../Components/Cards"
 import userEvent from '@testing-library/user-event';
 import {ContextProvider} from "../ContextProvider"
@@ -13,17 +13,18 @@ describe("Cards component", () => {
         setup()
     })
 
-    it("Adds selected item to the cart", async () => {
+
+      it("Adds item to cart", async () => {
         setup()
 
-        expect(await screen.getAllByRole("listitem")).toBeVisible();
+        await waitFor(() => expect(screen.getByTestId("add1")).toBeVisible());
 
-        const itemExists = screen.getAllByRole("listitem");
-        expect(itemExists.length).toBeGreaterThan(1)
-    
-        // const chosenCategory = screen.getByTestId("addcart");
-        // userEvent.click(chosenCategory);
-        // const fetchedUser = JSON.parse(localStorage.getItem("Cart")!);
-        // expect(fetchedUser).toHaveProperty("Title");
-      });
+        const addButton = screen.getByTestId("add1")
+        userEvent.click(addButton)
+        const cartFetch = JSON.parse(localStorage.getItem("Cart")!)
+        expect(cartFetch.length).toBe(1)
+        
+
+
+      })
 })

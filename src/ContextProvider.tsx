@@ -8,7 +8,7 @@ const ContextProvider = ({ children }: any) => {
   const [products, setProducts] = useState<IProductItem[]>([]);
   const [searchedProducts, setSearchedProducts] = useState<IProductItem[]>([]);
   const [cart, setCart] = useState<ICartItem[]>([] as ICartItem[]);
-  const [cartNumber, setCartNumber] = useState<number>()
+  const [cartNumber, setCartNumber] = useState<number>();
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const [open, setOpen] = React.useState<boolean>(false);
@@ -49,28 +49,19 @@ const ContextProvider = ({ children }: any) => {
       }
     }
     checkLoggedIn();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("logged", JSON.stringify(loggedIn))
-   }, [loggedIn])
+    localStorage.setItem("logged", JSON.stringify(loggedIn));
+  }, [loggedIn]);
 
-  
-// switch setproducts and setsearched for filtering.
+  // switch setproducts and setsearched for filtering.
   function searchForItem(itemName: string) {
     let searched;
 
-    if(itemName === ""){
-        setProducts(searchedProducts)
+    if (itemName === "") {
+      setProducts(searchedProducts);
     }
-    const upperCaseLetter =
-      itemName.charAt(0).toUpperCase() + itemName.slice(1);
-    const lowerCaseAllExceptFirst = upperCaseLetter.replace(
-      /\s*/g,
-      function (word) {
-        return word.charAt(0) + word.slice(1).toLowerCase();
-      }
-    );
 
     searched = searchedProducts.filter((data: any) => {
       return data.Title.toLowerCase().includes(itemName.toLowerCase());
@@ -100,7 +91,7 @@ const ContextProvider = ({ children }: any) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("Cart", JSON.stringify(cart))
+    localStorage.setItem("Cart", JSON.stringify(cart));
   }, [cart]);
 
   useEffect(() => {
@@ -120,7 +111,7 @@ const ContextProvider = ({ children }: any) => {
         searchedProducts,
         setProducts,
         setLoggedIn,
-        loggedIn
+        loggedIn,
       }}
     >
       {children}

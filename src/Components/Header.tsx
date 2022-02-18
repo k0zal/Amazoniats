@@ -77,7 +77,7 @@ const style = {
 };
 
 export default function SearchAppBar() {
-  const { handleOpen, searchForItem, cart, setLoggedIn, loggedIn } = useContext(Context);
+  const { handleOpen, searchForItem, cart, setLoggedIn, loggedIn, products } = useContext(Context);
   const [open, setOpen] = React.useState(false);
   
   const openLogin = () => setOpen(true);
@@ -149,6 +149,7 @@ export default function SearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <IconButton
+          data-testid="openmodal"
             onClick={handleOpen}
             size="large"
             edge="start"
@@ -168,6 +169,8 @@ export default function SearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+            type="text"
+            
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => searchForItem(e.target.value)}
@@ -180,12 +183,15 @@ export default function SearchAppBar() {
       </AppBar>
 
       <Modal
+    
         open={open}
         onClose={closeLogin}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+        
+        sx={style}>
           {!loggedIn ? (
             <>
               <h2 style={{ margin: 0, padding: 0 }}>Login</h2>

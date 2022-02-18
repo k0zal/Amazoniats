@@ -139,8 +139,8 @@ function filterSelectFunction(filterValue: string){
     return (
       
       <EventsLI key={product.ID}>
-        <CardActionArea>
-          <Card sx={{ maxWidth: 320, backgroundColor: "rgb(247, 245, 245)" }}>
+        <CardActionArea >
+          <Card  sx={{ maxWidth: 320, backgroundColor: "rgb(247, 245, 245)" }}>
             {!loading ? 
             <CardMedia
               component="img"
@@ -164,14 +164,14 @@ function filterSelectFunction(filterValue: string){
                 {product?.Price}$
                 
               </Typography>
-              <Typography variant="body2" color="#333">
+              <Typography  variant="body2" color="#333">
                 {product.Description.substring(0, 90)}...
               </Typography>
             </CardContent>
             <CardActions>
               <CartreviewDiv>
-               {loggedIn ? <Button
-                data-testid="button"
+               {!loggedIn ? <Button
+                data-testid={"add" + product.ID}
                   size="medium"
                   color="success"
                   variant="contained"
@@ -181,7 +181,6 @@ function filterSelectFunction(filterValue: string){
                   Add to cart
                 </Button>
   : <Button
-  data-testid="button"
     size="medium"
     color="warning"
     variant="contained"
@@ -210,7 +209,7 @@ function filterSelectFunction(filterValue: string){
     );
   });
   return (
-    <Container>
+    <Container >
       <p data-testid="cart-1"></p>
        <FormControl sx={{m: 1, minWidth: 150}}>
         <InputLabel id="demo-simple-select-label">Categories</InputLabel>
@@ -227,12 +226,12 @@ function filterSelectFunction(filterValue: string){
           <MenuItem value={"Jewelery"}>Jewelery</MenuItem>
         </Select>
       </FormControl>
-      <EventUL>{prodz}</EventUL>
+      <EventUL aria-label="textinhere">{prodz}</EventUL>
 
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         open={notice}
-        autoHideDuration={2000}
+        autoHideDuration={2000} 
         onClose={() => setNotice(false)}
       >
         <Alert variant="filled" severity="success">

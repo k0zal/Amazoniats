@@ -77,7 +77,7 @@ useEffect(() => {
             setCartState("out of stock")
         }
         else{
-       console.log("priset bror", totalPrice += Number(cart[i].ProductItem.Price))
+       console.log("priset", totalPrice += Number(cart[i].ProductItem.Price))
             
         }
       
@@ -109,7 +109,11 @@ useEffect(() => {
       setCart(removeThis)
    }
 
+const testfetch = JSON.parse(localStorage.getItem("Cart")!)
 
+// useEffect(() => {
+//   console.log("testfetch är", testfetch[0]?.Count.length)
+// }, [testfetch])
 
 
     const cartItems = cart.map((cartItem: ICartItem) => {
@@ -130,6 +134,7 @@ useEffect(() => {
           <ButtonsDiv>
           <ButtonGroup variant="outlined" sx={{padding:"0"}} >
           <Button
+          data-testid={"removefromcart" + cartItem.ProductItem.ID}
           disabled={cartItem.Count == 0 ? true : false}
           size="small"
           sx={{width:"10px"}}
@@ -141,18 +146,19 @@ useEffect(() => {
             <RemoveIcon fontSize="small" color="error" />
           </Button>
           <Button
+          data-testid={"addfromcart" + cartItem.ProductItem.ID}
           disabled={cartItem.ProductItem.InStock == 0 ? true : false}
           color="success"
           size="small"
             aria-label="increase"
             onClick={() => {
-                cartIncrease(cartItem)
+              cartIncrease(cartItem)
             }}
           >
             <AddIcon fontSize="small" />
           </Button>
         </ButtonGroup>
-        <Button sx={{padding:"0"}} onClick={() => removeThisFromCart(cartItem.ID)}><DeleteIcon fontSize="small" /></Button>
+        <Button aria-label="totalremove" sx={{padding:"0"}} onClick={() => removeThisFromCart(cartItem.ID)}><DeleteIcon fontSize="small" /></Button>
         <p style={{padding:0, margin:0}}>In Stock: {cartItem.ProductItem.InStock}</p>
         </ButtonsDiv>
           <Divider variant="middle" />
@@ -164,9 +170,10 @@ useEffect(() => {
   return (
     <Container>
       <Modal
+      
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
+        open={open} // ändrade open till true och fade in där nere med ska vara open
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -174,8 +181,9 @@ useEffect(() => {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
-          <Box sx={style}>
+        
+        <Fade in={open} >  
+          <Box sx={style} aria-label="modal" data-testid="modal">
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Cart
             </Typography>
