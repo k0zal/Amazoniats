@@ -170,7 +170,7 @@ function filterSelectFunction(filterValue: string){
             </CardContent>
             <CardActions>
               <CartreviewDiv>
-               {!loggedIn ? <Button
+               <Button
                 data-testid={"add" + product.ID}
                   size="medium"
                   color="success"
@@ -180,15 +180,6 @@ function filterSelectFunction(filterValue: string){
                 >
                   Add to cart
                 </Button>
-  : <Button
-    size="medium"
-    color="warning"
-    variant="contained"
-    disabled={true}
-  
-  >
-    Sign In 
-  </Button> }
                 <Rating
                   name="text-feedback"
                   value={product?.Rating?.Rate}
@@ -211,21 +202,7 @@ function filterSelectFunction(filterValue: string){
   return (
     <Container >
       <p data-testid="cart-1"></p>
-       <FormControl sx={{m: 1, minWidth: 150}}>
-        <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={filterSelect}
-          label="Categories"
-          onChange={(e) => filterSelectFunction(e.target.value)}
-        >
-          <MenuItem value={""}>All</MenuItem>
-          <MenuItem value={"electronics"}>Electronics</MenuItem>
-          <MenuItem value={"Clothing"}>Clothing</MenuItem>
-          <MenuItem value={"Jewelery"}>Jewelery</MenuItem>
-        </Select>
-      </FormControl>
+       
       <EventUL aria-label="textinhere">{prodz}</EventUL>
 
       <Snackbar

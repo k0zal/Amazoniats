@@ -33,7 +33,7 @@ describe("Cards component", () => {
     expect(cartFetch[0].Count).toBe(2);
   });
 
-  it("Opens modal", async () => {
+  it("Opens cart modal to see items", async () => {
     render(
       <ContextProvider>
         <Cart />
@@ -58,7 +58,7 @@ describe("Cards component", () => {
 
     const clickModal = screen.getByLabelText("open drawer");
     userEvent.click(clickModal);
-    const modal = screen.getByLabelText("modal");
+    
     const increaseFromCart = screen.getByLabelText("increase");
     userEvent.click(increaseFromCart);
     const cartFetch = JSON.parse(localStorage.getItem("Cart")!);

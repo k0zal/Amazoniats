@@ -161,9 +161,9 @@ export default function SearchAppBar() {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
-          <Button onClick={openLogin} color="inherit">
+          {<Button onClick={!loggedIn ? openLogin : handleSignOut} color="inherit">
             {loggedIn ? "Sign out" : "Login"}
-          </Button>
+          </Button>}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
